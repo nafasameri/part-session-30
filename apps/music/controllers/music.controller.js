@@ -5,6 +5,9 @@ const logger = require('log4js').getLogger();
 const formidable = require('formidable')
 // const musicRepository = new MusicRepository();
 
+const fs = require('fs');
+
+
 logger.level = 'debug';
 
 const upload = async (req, res) => {
@@ -31,10 +34,17 @@ const upload = async (req, res) => {
 
             if (error) {
                 logger.error(error);
-                sendResponse(res, error.httpCode || 400, { 'Content-Type': 'text/plain' }, `${error}`);
+                sendResponse(res, error.httpCode || 400, {
+                    'Content-Type': 'text/plain'
+                }, `${error}`);
                 return;
             }
-            sendResponse(res, 200, { 'Content-Type': 'application/json' }, JSON.stringify({ fields, files }, null, 2));
+            sendResponse(res, 200, {
+                'Content-Type': 'application/json'
+            }, JSON.stringify({
+                fields,
+                files
+            }, null, 2));
         });
 
         return;
@@ -45,21 +55,32 @@ const upload = async (req, res) => {
 };
 
 const root = async (req, res) => {
-    // else show a file upload form
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write(`<html><body>
-      <h2>With Node.js <code>"http"</code> module</h2>
-      <form action="/music/upload" enctype="multipart/form-data" method="post">
-        <div>Text field title: <input type="text" name="title" /></div>
-        <div>File: <input type="file" name="multipleFiles" multiple="multiple" /></div>
-        <input type="submit" value="Upload" />
-      </form>
-      </body></html>`);
-    res.end();
-}
+    sendResponse(res, 200, {
+            'Content-Type': 'text/html'
+        },
+        `<html><body>
+    <h2>With Node.js <code>"http"</code> module</h2>
+    <form action="/music/upload" enctype="multipart/form-data" method="post">
+    <div>Text field title: <input type="text" name="title" /></div>
+    <div>File: <input type="file" name="multipleFiles" multiple="multiple" /></div>
+    <input type="submit" value="Upload" />
+    </form>
+    </body></html>`);
+};
+
+const load = async (req, res) => {
+    sendResponse(res, 200, { 'Content-Type': 'text/html' },
+        fs.readFileSync('D:\\Development\\Work\\Part\\College\\session29\\30-session\\view\\range.html'));
+};
+
+const range = async (req, res) => {
+    sendResponse(res, 200, { 'Content-Type': 'text/html' }, null);
+};
 
 
 module.exports = {
     upload,
-    root
+    root,
+    load,
+    range
 };

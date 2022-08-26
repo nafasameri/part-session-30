@@ -14,6 +14,18 @@ const routes = [
     controller: musicController.upload,
     middlewares: [fetchQueryStringFromURL, getHeaders],
   },
+  {
+    url: "load",
+    method: "GET",
+    controller: musicController.load,
+    middlewares: [fetchQueryStringFromURL, getHeaders],
+  },
+  {
+    url: "range",
+    method: "POST",
+    controller: musicController.range,
+    middlewares: [fetchQueryStringFromURL, getHeaders],
+  },
 ];
 
 module.exports = routes;
