@@ -55,10 +55,7 @@ const upload = async (req, res) => {
 };
 
 const root = async (req, res) => {
-    sendResponse(res, 200, {
-            'Content-Type': 'text/html'
-        },
-        `<html><body>
+    sendResponse(res, 200, { 'Content-Type': 'text/html' }, `<html><body>
     <h2>With Node.js <code>"http"</code> module</h2>
     <form action="/music/upload" enctype="multipart/form-data" method="post">
     <div>Text field title: <input type="text" name="title" /></div>

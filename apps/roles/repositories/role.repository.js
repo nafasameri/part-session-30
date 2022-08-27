@@ -29,18 +29,14 @@ class RoleRepository {
         return null;
     }
 
-    async add(id) {
-        for (let role of rolesDataStore) {
-            if (role.RoleID == id) {
-                let roleModel = new Role(
-                    role.RoleID,
-                    role.RoleName,
-                    role.RoleDesc
-                );
-                return roleModel;
-            }
-        }
-        return null;
+    async add(role) {        
+        let roleModel = new Role(
+            role.RoleID,
+            role.RoleName,
+            role.RoleDesc
+        );
+        rolesDataStore.push(roleModel);        
+        return roleModel.RoleID;
     }
 }
 

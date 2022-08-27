@@ -40,11 +40,6 @@ function httpListener(request, response) {
     }));
 }
 
-function sendResponse(response, responseStatus, responseHeaders, readable) {
-    response.writeHead(responseStatus, responseHeaders);
-    response.end(JSON.stringify(readable));
-}
-
 function getMimeNameFromExt(ext) {
     let mimeNames = {
         '.css': 'text/css',

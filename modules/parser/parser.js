@@ -20,7 +20,9 @@ function fetchQueryStringFromURL(req, res, next) {
     logger.warn('querystring: ' + JSON.stringify(req.querystring));
     return req;
   } catch (e) {
-    sendResponse(res, 500, { "Content-Type": "application/json" },
+    sendResponse(res, 500, {
+        "Content-Type": "application/json"
+      },
       JSON.stringify({
         message: "oOps! Something went wrong!",
         addtionalInfo: e.message,
@@ -45,9 +47,12 @@ async function getPostData(req, res, next) {
         }
         resolve(data);
       });
+      // return req;
     });
   } catch (e) {
-    sendResponse(res, 500, { "Content-Type": "application/json" },
+    sendResponse(res, 500, {
+        "Content-Type": "application/json"
+      },
       JSON.stringify({
         message: "oOps! Something went wrong!",
         addtionalInfo: e.message,
@@ -60,6 +65,7 @@ async function getPostData(req, res, next) {
 async function getHeaders(req, res, next) {
   try {
     const contentType = req.headers['content-type'];
+
     let data = '';
     req.on('data', (chunk) => {
       data += chunk.toString();
@@ -79,7 +85,9 @@ async function getHeaders(req, res, next) {
     });
     return req;
   } catch (e) {
-    sendResponse(res, 500, { "Content-Type": "application/json" },
+    sendResponse(res, 500, {
+        "Content-Type": "application/json"
+      },
       JSON.stringify({
         message: "oOps! Something went wrong!",
         addtionalInfo: e.message,
@@ -89,4 +97,8 @@ async function getHeaders(req, res, next) {
 }
 
 
-module.exports = { getPostData, fetchQueryStringFromURL, getHeaders };
+module.exports = {
+  getPostData,
+  fetchQueryStringFromURL,
+  getHeaders
+};
